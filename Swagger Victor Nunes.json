@@ -1,0 +1,124 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "API Trabalho",
+    "description": "API para o trabalho final",
+    "version": "0.0.1-rc",
+    "contact": {
+      "name": "Victor Nunes",
+      "email": "victor.nunes@riogrande.ifrs.edu.br",
+      "url": "https://tads.riogrande.ifrs.edu.br"
+    },
+    "license": {
+      "name": "MIT"
+    }
+  },
+  "host": "tads.riogrande.ifrs.edu.br",
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "basePath": "/curso/api",
+  "paths": {
+    "/locarLivro": {
+      "get": {
+        "tags": [
+          "locarLivro"
+        ],
+        "summary": "Locar Livro",
+        "description": "loca um determinado livro do banco de dados, este livro nao estama mais disponivel para outra locacao enquanto nao for entrege",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "Livro locado com sucesso",
+            "schema": {
+              "type": "boolean",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer",
+                    "description": "O codigo do livro",
+                    "example": 1
+                  },
+                  "descricao": {
+                    "type": "string",
+                    "description": "O  titulo do livro",
+                    "example": "Receita de miojo"
+                  },
+                  "locador": {
+                    "type": "string",
+                    "description": "quem locou o livro",
+                    "example": "zigomar"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Livro encontrado mas ja esta locado"
+          },
+          "404": {
+            "description": "Nenhum livro encontrado com tal nome"
+          },
+          "500": {
+            "description": "Um erro não esperado"
+          }
+        }
+      }
+    },
+    "/receberLivro": {
+      "get": {
+        "tags": [
+          "receberLivro"
+        ],
+        "summary": "Receber Livro ",
+        "description": "recebe um determinado livro que havia sido locado, este livro volta a estar disponivel para outra locacao",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "Livro recebido com sucesso",
+            "schema": {
+              "type": "boolean",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer",
+                    "description": "O codigo do livro",
+                    "example": 1
+                  },
+                  "descricao": {
+                    "type": "string",
+                    "description": "O  titulo do livro",
+                    "example": "Receita de miojo"
+                  },
+                  "locador": {
+                    "type": "string",
+                    "description": "quem havia locado o livro",
+                    "example": "zigomar"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Livro foi entregue danificado"
+          },
+          "404": {
+            "description": "livro entregue nao e o mesmo que foi locado"
+          },
+          "500": {
+            "description": "Um erro nao esperado"
+          }
+        }
+      }
+    }
+  }
+}
